@@ -1,53 +1,352 @@
-html,body{
-margin: 0;
-height: 100%;
+:root {
+    /* Light theme variables */
+    --primary-color: #006BFF;
+    --secondary-color: #008CBA;
+    --background-color: #9DBDFF;
+    --error-color: #ff4444;
+    --success-color: #00C851;
+    --text-color: #333;
+    --card-bg: white;
+    --input-bg: white;
+}
+
+[data-theme="dark"] {
+    --primary-color: #66a3ff;
+    --secondary-color: #4db8ff;
+    --background-color: #1a1a1a;
+    --error-color: #ff6666;
+    --success-color: #00E676;
+    --text-color: #f0f0f0;
+    --card-bg: #2d2d2d;
+    --input-bg: #333333;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.light-icon, .dark-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+[data-theme="dark"] .light-icon,
+[data-theme="light"] .dark-icon {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+[data-theme="light"] .light-icon,
+[data-theme="dark"] .dark-icon {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
     padding: 20px;
-    max-width: 600px;
-    margin: auto;
-    background-color: #9DBDFF;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1rem;
 }
 
 textarea {
     width: 100%;
-    height: 150px;
-    margin-bottom: 10px;
-    border: 3px solid #006BFF;
+    height: 200px;
+    padding: 15px;
+    border: 3px solid var(--primary-color);
     border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.char-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    background-color: var(--card-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
 }
 
 button {
-    padding: 10px;
-    background-color: white;
-    color: black;
-    border: 1px solid #008CBA;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--card-bg);
+}
+
+.secondary-btn {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.result-container {
+    background-color: var(--card-bg);
     border-radius: 10px;
-}
-
-button:hover{
-    background-color: #008CBA;
-  color: white;
-}
-
-
-
-#result {
+    padding: 20px;
     margin-top: 20px;
-    border: 3px solid #006BFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-container {
+    position: relative;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.error {
+    color: var(--error-color);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 6px;
+    background-color: rgba(255, 68, 68, 0.1);
 }
-h1{
+
+.loading {
     text-align: center;
-    font-style: italic;
-    color: #006BFF;
-    text-shadow: 1px 1px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--primary-color);
+    padding: 20px;
 }
-h1:hover{
-    color: white;
+
+.loading::after {
+    content: '...';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* Tab Styles */
+.input-methods {
+    margin-bottom: 2rem;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: var(--card-bg);
+}
+
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-pane.active {
+    display: block;
+    opacity: 1;
+}
+
+/* File Upload Styles */
+.file-upload-container {
+    margin-bottom: 1rem;
+}
+
+.file-upload-area {
+    position: relative;
+    min-height: 200px;
+    border: 3px dashed var(--primary-color);
+    border-radius: 10px;
+    background-color: var(--input-bg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-upload-area:hover,
+.file-upload-area.drag-over {
+    background-color: var(--card-bg);
+    border-style: solid;
+}
+
+.file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--text-color);
+    width: 100%;
+    padding: 20px;
+}
+
+.file-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.browse-text {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.file-support-text {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+}
+
+.file-info {
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    display: none;
+}
+
+.file-info.active {
+    display: block;
+}
+
+.file-error {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--primary-color);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer:hover {
+    opacity: 1;
 }

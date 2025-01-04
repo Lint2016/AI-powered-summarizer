@@ -5,18 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-powered text-summarizer App</title>
     <link rel="stylesheet" href="style.css">
-   <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    
-    <h1>AI-Powered Text Summarizer</h1>
-    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
-    <button   id="summarizeButton">Summarize</button>
-    <button  id="summarizeButtonClear">Clear</button>
-    <div id="result"></div>
-    
-<script src="index.js"></script>
+    <div class="theme-toggle">
+        <button id="themeToggle" class="theme-btn">
+            <span class="light-icon">☀️</span>
+            <span class="dark-icon">🌙</span>
+        </button>
+    </div>
 
+    <div class="container">
+        <h1>AI-Powered Text Summarizer</h1>
+        
+        <div class="input-methods">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="text">Text Input</button>
+                <button class="tab-btn" data-tab="file">File Upload</button>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="textInput">
+                    <div class="input-container">
+                        <textarea id="inputText" placeholder="Enter your text here (minimum 10 characters)..."></textarea>
+                        <div id="charCount" class="char-count">0/5000 characters</div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="fileInput">
+                    <div class="file-upload-container">
+                        <div class="file-upload-area" id="dropZone">
+                            <input type="file" id="fileInput" accept=".txt,.doc,.docx,.pdf" class="file-input" />
+                            <div class="file-upload-content">
+                                <span class="file-icon">📄</span>
+                                <p>Drag & drop your file here or <span class="browse-text">browse</span></p>
+                                <p class="file-support-text">Supports: TXT, DOC, DOCX, PDF</p>
+                            </div>
+                        </div>
+                        <div id="fileInfo" class="file-info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="summarizeButton" class="primary-btn">Summarize</button>
+            <button id="summarizeButtonClear" class="secondary-btn">Clear</button>
+        </div>
+
+        <div id="result" class="result-container"></div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Louis Kapend. All rights reserved.</p>
+    </footer>
+
+    <script src="index.js"></script>
 </body>
-
 </html>
