@@ -2,7 +2,6 @@
 
 A modern web application that uses AI to generate concise summaries of text content. Built with vanilla JavaScript and powered by the Hugging Face API.
 
-![Text Summarizer Demo](image/demo.gif) <!-- You can add a demo GIF later -->
 
 ## Features
 
@@ -106,6 +105,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Louis Kapend - Project Developer
 
 ## Contact
-Louis Kapend - [Your Email or Social Media]
+Louis Kapend - louiskapend2016@gmail.com
 
-Project Link: [https://github.com/yourusername/text-summarizer](https://github.com/yourusername/text-summarizer)
