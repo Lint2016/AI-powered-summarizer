@@ -272,3 +272,54 @@ button:disabled {
 .footer:hover {
     opacity: 1;
 }
+/*small screen */
+@media (max-width: 600px) {
+    .container {
+        max-width: 95%;
+        padding: 10px;
+        margin: 1rem auto;
+    }
+    
+    textarea {
+        height: 150px;
+        width: 100%;
+        margin-right: 0;
+        font-size: 14px;
+        padding: 10px;
+        box-sizing: border-box; /* Add this to include padding in width calculation */
+    }
+
+    .input-container {
+        width: 100%; /* Add this to ensure container takes full width */
+        padding: 0; /* Remove any padding that might cause overflow */
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%; /* Ensure buttons take full width */
+    }
+
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+    }
+
+    .theme-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 1rem;
+    }
+
+    /* Add this to ensure all buttons take full width */
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+}
+

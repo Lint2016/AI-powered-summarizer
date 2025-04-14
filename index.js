@@ -45,6 +45,7 @@ const inputText = document.getElementById('inputText');
 const resultDiv = document.getElementById('result');
 const summarizeBtn = document.getElementById('summarizeButton');
 const clearBtn = document.getElementById('summarizeButtonClear');
+const TranslateBtn = document.getElementById('summarizeButtonTranslate');
 
 // Character counter
 inputText.addEventListener('input', () => {
@@ -130,3 +131,59 @@ function copyToClipboard(button) {
             setTimeout(() => button.textContent = 'Copy Summary', 2000);
         });
 }
+
+
+//this is for the translate button
+const API_KEY = "AIzaSyBeKVVeR9f3uNvSMOi5XfqEfPPQ3FqRWyU"; // your google api key,
+const translateBtn = document.getElementById("translateBtn");
+// Reuse the existing inputText variable declared earlier
+
+TranslateBtn.addEventListener("click", async () => {
+  const text = inputText.value.trim();
+
+  if (!text) {
+   // alert("Please enter text to translate.");
+    swal.fire({
+        title: "Error",
+        text: "Please enter text to translate.",
+        icon: "error"
+    })
+    return;
+  }else{
+    swal.fire({
+        title: "Success",
+        text: "Your text has been successfully translated to French",
+        icon: "success"
+    })
+  }
+
+  try {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          q: [text],          // Google expects an array for 'q'
+          target: "fr",       // French
+          format: "text"      // (optional) plain text
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (data && data.data && data.data.translations) {
+      inputText.value = data.data.translations[0].translatedText;
+    } else {
+      console.error("Unexpected API response:", data);
+      alert("Something went wrong with the translation.");
+    }
+
+  } catch (error) {
+    console.error("Translation error:", error);
+    alert("Error translating the text.");
+  }
+});
