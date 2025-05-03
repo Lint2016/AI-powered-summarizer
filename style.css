@@ -27,6 +27,11 @@ html, body {
 }
 
 body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('image/aiImage.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
@@ -84,11 +89,12 @@ body {
     max-width: 800px;
     margin: 2rem auto;
     padding: 20px;
+    
 }
 
 h1 {
     text-align: center;
-    color: var(--primary-color);
+    color: white;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
 }
@@ -268,7 +274,12 @@ button:disabled {
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
-
+.footer p {
+    margin: 0;
+    font-weight: bold;
+    color: white;
+    font-size: 1.4rem;
+}
 .footer:hover {
     opacity: 1;
 }
@@ -281,7 +292,7 @@ button:disabled {
     }
     
     textarea {
-        height: 150px;
+        height: 190px;
         width: 100%;
         margin-right: 0;
         font-size: 14px;
@@ -312,7 +323,8 @@ button:disabled {
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 30px;
+        color: white;
         margin-bottom: 1rem;
     }
 
@@ -321,5 +333,27 @@ button:disabled {
     .secondary-btn {
         width: 100%;
     }
+    .footer p {
+        font-size: 2rem;
+        margin: 0;
+        color:white;
+        padding-bottom: 5px;
+    }
+    .footer {
+        margin-top: 30px;
+        padding-top: 100px;
+    }
+    button{
+        font-size: 20px;
+    }
+   #inputText{
+    font-size: 20px;
+   }
+   #charCount{
+    font-size: 20px;
+   }
 }
+
+
+
 
