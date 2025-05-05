@@ -1,45 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI-powered text-summarizer App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/e110590ce5.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
     <div class="theme-toggle">
-        <button id="themeToggle" class="theme-btn">
-            <span class="light-icon">☀️</span>
-            <span class="dark-icon">🌙</span>
-        </button>
+      <button id="themeToggle" class="theme-btn">
+        <span class="light-icon">☀️</span>
+        <span class="dark-icon">🌙</span>
+      </button>
     </div>
 
     <div class="container">
-        <h1>Text Summarizer</h1>
-        
-        <div class="input-methods">
-            <div class="input-container">
-                <textarea id="inputText" placeholder="Enter your text here (minimum 10 characters)..."></textarea>
-                <div id="charCount" class="char-count">0/5000 characters</div>
+      <h1>Text Summarizer</h1>
+
+      <div class="input-methods">
+        <div class="input-container">
+          <textarea
+            id="inputText"
+            placeholder="Enter your text here (minimum 10 characters)..."
+          ></textarea>
+          <div id="charCount" class="char-count">0/5000 characters</div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button id="summarizeButton" class="primary-btn">Summarize</button>
+        <button id="summarizeButtonClear" class="secondary-btn">Clear</button>
+        <button id="summarizeButtonTranslate" class="secondary-btn">
+          Translate to French
+        </button>
+        <button id="frenchAudio" class="secondary-btn">
+          <i class="fas fa-play"></i> Listen to French
+        </button>
+        <div class="controls">
+            <div class="control-buttons">
+                <button class="control-btn"><i class="fas fa-pause" id="pauseButton"></i></button>
+                <button class="control-btn"><i class="fas fa-stop" id="stopButton"></i></button>
             </div>
         </div>
+        
+      </div>
 
-        <div class="button-container">
-            <button id="summarizeButton" class="primary-btn">Summarize</button>
-            <button id="summarizeButtonClear" class="secondary-btn">Clear</button>
-            <button id="summarizeButtonTranslate" class="secondary-btn">Translate to French</button>
-            <button id="frenchAudio" class="secondary-btn">Listen to the French Translation</button>
-        </div>
-
-        <div id="result" class="result-container"></div>
+      <div id="result" class="result-container"></div>
     </div>
-    
+
     <footer class="footer">
-        <p>&copy; 2024 Louis Kapend. All rights reserved.</p>
+      <p>&copy; 2024 Louis Kapend. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
-</body>
+  </body>
 </html>
+

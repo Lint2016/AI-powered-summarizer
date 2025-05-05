@@ -226,7 +226,14 @@ button:disabled {
 .input-methods {
     margin-bottom: 2rem;
 }
-
+.control-btn {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 .tab-buttons {
     display: flex;
     gap: 10px;
@@ -310,7 +317,16 @@ button:disabled {
         gap: 8px;
         width: 100%; /* Ensure buttons take full width */
     }
-
+    .fa-pause, .fa-stop {
+        font-size: 20px;
+        width: 50%;
+    }
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
     .theme-toggle {
         top: 10px;
         right: 10px;
@@ -321,11 +337,13 @@ button:disabled {
         height: 35px;
         font-size: 20px;
     }
-
+    .result-container {
+        margin-bottom: 40px;
+    }
     h1 {
         font-size: 30px;
         color: white;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
 
     /* Add this to ensure all buttons take full width */
@@ -352,8 +370,34 @@ button:disabled {
    #charCount{
     font-size: 20px;
    }
+    .controls {
+        margin-top: 5px;
+        width: 100%;
+    }
+    
+    .control-buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .control-btn {
+        flex: 1;
+        margin: 0 5px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        background-color: var(--card-bg);
+        border: 1px solid var(--primary-color);
+    }
+    
+    .fa-pause, .fa-stop {
+        color: var(--primary-color);
+        font-size: 18px;
+    }
+    
+    #frenchAudio {
+        margin-bottom: 5px;
+    }
 }
-
-
-
 
