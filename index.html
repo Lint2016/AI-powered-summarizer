@@ -39,15 +39,26 @@
         <button id="summarizeButtonTranslate" class="secondary-btn">
           Translate to French
         </button>
-        <button id="frenchAudio" class="secondary-btn">
-          <i class="fas fa-play"></i> Listen to French
-        </button>
-        <div class="controls">
-            <div class="control-buttons">
-                <button class="control-btn"><i class="fas fa-stop" id="stopButton"></i></button> 
-            </div>
+        <div class="controls-wrapper">
+          <button id="frenchAudio" class="secondary-btn">
+            <i class="fas fa-play"></i> Listen to French
+          </button>
+          <div class="speed-control">
+              <label for="speedSelect" class="speed-label">
+                  <i class="fas fa-tachometer-alt"></i> Speed:
+              </label>
+              <select id="speedSelect" class="speed-select">
+                  <option value="0.7">Slow</option>
+                  <option value="1.0" selected>Normal</option>
+                  <option value="1.3">Fast</option>
+              </select>
+          </div>
+          <div class="controls">
+              <div class="control-buttons">
+                  <button class="control-btn"><i class="fas fa-stop" id="stopButton"></i></button> 
+              </div>
+          </div>
         </div>
-        
       </div>
 
       <div id="result" class="result-container"></div>
@@ -60,4 +71,3 @@
     <script src="index.js"></script>
   </body>
 </html>
-

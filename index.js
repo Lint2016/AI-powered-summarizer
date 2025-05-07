@@ -193,6 +193,7 @@ let currentChunk = 0;
 let textChunks = [];
 let isPaused = false;
 let isSpeaking = false;
+let currentRate = 1.0; // Default speed
 
 // Split text into sentences for better chunking
 function splitIntoSentences(text) {
@@ -235,9 +236,20 @@ function updatePlayButtonState(isPlaying) {
     }
 }
 
+const speedSelect = document.getElementById('speedSelect');
+
+// Update the rate when user changes the speed
+speedSelect.addEventListener('change', (e) => {
+    currentRate = parseFloat(e.target.value);
+    // If currently speaking, update the rate for the next chunk
+    if (isSpeaking) {
+        synth.cancel();
+        speakNextChunk();
+    }
+});
+
 function speakNextChunk() {
     if (currentChunk >= textChunks.length) {
-        // All chunks spoken
         isSpeaking = false;
         isPaused = false;
         currentChunk = 0;
@@ -247,7 +259,7 @@ function speakNextChunk() {
 
     const utterance = new SpeechSynthesisUtterance(textChunks[currentChunk]);
     utterance.lang = 'fr-FR';
-    utterance.rate = 1.0;
+    utterance.rate = currentRate; // Use the current rate
 
     utterance.onstart = () => {
         isSpeaking = true;

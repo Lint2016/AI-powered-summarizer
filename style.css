@@ -224,6 +224,13 @@ textarea::placeholder {
     transition: 0s;
 }
 
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
 .controls {
     display: flex;
     justify-content: center;
@@ -261,31 +268,65 @@ button.loading::after {
 }
 
 @media (min-width: 768px) {
-    .button-container {
+    .controls-wrapper {
         flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        align-items: center;
+        gap: 12px;
     }
     
-    .primary-btn, .secondary-btn {
-        width: auto;
-        min-width: 180px;
+    #frenchAudio {
+        flex: 1;
+        min-width: 160px;
+    }
+    
+    .speed-control {
+        margin: 0;
+        min-width: 150px;
+    }
+    
+    .speed-select {
+        min-width: 100px;
     }
     
     .controls {
-        width: 100%;
-        justify-content: center;
+        margin: 0;
+    }
+    
+    .control-buttons {
+        gap: 8px;
     }
 }
 
-[data-theme="dark"] .secondary-btn {
-    background: var(--card-bg);
-    border-color: var(--primary-color);
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
 }
 
-[data-theme="dark"] .control-btn {
-    background: var(--card-bg);
-    color: var(--primary-color);
+.speed-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-size: 2rem;
+    white-space: nowrap;
+}
+
+.speed-select {
+    padding: 10px 12px;
+    border-radius: 25px;
+    border: 2px solid var(--primary-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    appearance: none;
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
 .result-container {
