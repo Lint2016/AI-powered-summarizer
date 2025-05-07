@@ -132,7 +132,6 @@ function copyToClipboard(button) {
         });
 }
 
-
 //this is for the translate button
 const API_KEY = "AIzaSyBeKVVeR9f3uNvSMOi5XfqEfPPQ3FqRWyU"; // your google api key,
 const translateBtn = document.getElementById("translateBtn");
@@ -186,4 +185,170 @@ TranslateBtn.addEventListener("click", async () => {
     console.error("Translation error:", error);
     alert("Error translating the text.");
   }
+});
+
+// Text-to-speech functionality
+const synth = window.speechSynthesis;
+let currentChunk = 0;
+let textChunks = [];
+let isPaused = false;
+let isSpeaking = false;
+
+// Split text into sentences for better chunking
+function splitIntoSentences(text) {
+    // Split by common sentence endings followed by space
+    return text.match(/[^.!?]+[.!?]+/g) || [text];
+}
+
+// Process text into manageable chunks
+function prepareTextChunks(text) {
+    const sentences = splitIntoSentences(text);
+    const chunks = [];
+    let currentChunk = '';
+    
+    sentences.forEach(sentence => {
+        if ((currentChunk + sentence).length < 200) {
+            currentChunk += sentence;
+        } else {
+            if (currentChunk) chunks.push(currentChunk);
+            currentChunk = sentence;
+        }
+    });
+    
+    if (currentChunk) chunks.push(currentChunk);
+    return chunks;
+}
+
+// Update the play/pause button state
+function updatePlayButtonState(isPlaying) {
+    const icon = playBtn.querySelector('i');
+    if (isPlaying) {
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+        playBtn.classList.add('playing');
+        playBtn.setAttribute('aria-label', 'Pause');
+    } else {
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        playBtn.classList.remove('playing');
+        playBtn.setAttribute('aria-label', 'Play');
+    }
+}
+
+function speakNextChunk() {
+    if (currentChunk >= textChunks.length) {
+        // All chunks spoken
+        isSpeaking = false;
+        isPaused = false;
+        currentChunk = 0;
+        updatePlayButtonState(false);
+        return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(textChunks[currentChunk]);
+    utterance.lang = 'fr-FR';
+    utterance.rate = 1.0;
+
+    utterance.onstart = () => {
+        isSpeaking = true;
+        updatePlayButtonState(true);
+    };
+
+    utterance.onend = () => {
+        currentChunk++;
+        if (!isPaused) {
+            speakNextChunk();
+        } else {
+            updatePlayButtonState(false);
+        }
+    };
+
+    utterance.onerror = (event) => {
+        console.error('SpeechSynthesis error:', event);
+        isSpeaking = false;
+        isPaused = false;
+        updatePlayButtonState(false);
+        swal.fire({
+            title: "Error",
+            text: "An error occurred while reading the text.",
+            icon: "error"
+        });
+    };
+
+    synth.speak(utterance);
+}
+
+function startSpeaking(text) {
+    if (synth.speaking) {
+        synth.cancel();
+    }
+    
+    textChunks = prepareTextChunks(text);
+    currentChunk = 0;
+    isSpeaking = true;
+    isPaused = false;
+    
+    speakNextChunk();
+}
+
+// Check for browser support
+if (!('speechSynthesis' in window)) {
+    console.error('Your browser does not support the Web Speech API');
+    swal.fire({
+        title: "Error",
+        text: "Your browser does not support text-to-speech functionality. Please try a modern browser like Chrome or Firefox.",
+        icon: "error"
+    });
+}
+
+// Buttons elements
+const playBtn = document.getElementById('frenchAudio');
+const pauseBtn = document.getElementById('pauseButton');
+const stopBtn = document.getElementById('stopButton');
+
+// Update the play button click handler
+playBtn.addEventListener('click', () => {
+    const text = inputText.value.trim();
+    
+    if (!text) {
+        swal.fire({
+            title: "Error",
+            text: "No text to speak. Please enter and translate text first.",
+            icon: "error"
+        });
+        return;
+    }
+    
+    if (isPaused) {
+        // Resume from pause
+        synth.resume();
+        isPaused = false;
+        updatePlayButtonState(true);
+    } else if (isSpeaking) {
+        // Pause if currently speaking
+        synth.pause();
+        isPaused = true;
+        updatePlayButtonState(false);
+    } else {
+        // Start new speech
+        startSpeaking(text);
+    }
+});
+
+// Stop functionality
+stopBtn.addEventListener('click', () => {
+    if (isSpeaking || isPaused) {
+        synth.cancel();
+        isSpeaking = false;
+        isPaused = false;
+        currentChunk = 0;
+        updatePlayButtonState(false);
+    }
+});
+
+// Clean up when page is unloaded
+window.addEventListener('beforeunload', () => {
+    if (synth.speaking) {
+        synth.cancel();
+    }
 });
